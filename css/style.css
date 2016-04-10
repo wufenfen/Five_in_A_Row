@@ -1,10 +1,20 @@
 
 canvas {
+	position: absolute;
+	top:50%;
+	left: 50%;
+	z-index: 0;
+	transform: translate(-50%,-50%);
 	display:block;
-	margin: 100px auto  10px;
 	box-shadow: -2px -2px 2px #EFEFEF, 5px 5px 5px #B9B9B9; 
 }
 
-div{
+.btn{
+	display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#reset {
 	text-align: center;
 }
