@@ -10,6 +10,7 @@ var winCount = 0; //共有多少种赢法
 var myWin = []; //所有赢法的统计
 var computerWin = [];
 var over = false; //游戏是否结束
+var tips; //弹窗的DOM元素
 
 logo.onload = function(){
 	context.drawImage(logo,0,0,450,450);
@@ -32,13 +33,29 @@ chess.onclick = function(event){
 	var y = event.offsetY; 
 	var i = Math.round((x-15)/30);
 	var j = Math.round((y-15)/30);
+	if( isAvailable[i][j] ){ //如果这个位置下过了，直接返回
+		//alert("下过棋的位置不能再下了，这么简单的规则你都不懂吗~~~~");
+		tips = new Dialog();
+		tips.open({ 
+			content:"下过棋的位置不能再下了，这么简单的规则你都不懂吗~~~~",
+			isShowCancel:false,
+			okBtnTxt: "我记住啦",
+			okBtnFunc:test
+		});
+		return;
+	}
 	oneStep(i, j); 
 	for (var k = 0; k < winCount; k++) {
 		if(winTactics[i][j][k]){
 			myWin[k]++;
 			computerWin[k] = 6;
 			if(myWin[k]==5){
-				alert("你好厉害，你赢了！");
+				tips = new Dialog();
+				tips.open({ 
+					content:"你好厉害，你赢了！",
+					isShowCancel:true,
+					okBtnTxt: "再来一局"
+				}); 
 				over = true; 
 			} 
 		}
@@ -62,10 +79,6 @@ function drawChessBoard(){
 }
 
 function oneStep(i, j){
-	if( isAvailable[i][j] ){ //如果这个位置下过了，直接返回
-		return;
-	}
-
 	var x = 15 + i * 30 ;
 	var y = 15 + j * 30 ;
 	context.beginPath();
@@ -154,23 +167,28 @@ function computerStep() {
 			for (var k = 0; k < winCount; k++) {
 			 	if(winTactics[i][j][k]){
 			 		if(myWin[k]==1){
-			 			myScore += 200;
+			 			myScore += 200; //权重参数，调整参数可以让计算机是攻击性的还是防守型的。
 			 		}
 			 		else if(myWin[k]==2){
-			 			myScore += 400;
+			 			myScore += 400; //参数只是经验值，并不是最优的值
 			 		}
-			 		else if(myWin[k]==3){
-			 			myScore += 2000;
+			 		else if(myWin[k]==3){ //分两种情况:如果有白棋存在，权重就小一些。
+			 			if(computerWin[k]==1){
+			 				myScore += 1500;
+			 			}
+			 			else{
+			 				myScore += 4000;
+			 			}
 			 		}
-			 		else if(myWin[k]==4){
-			 			myScore += 10000;
+			 		else if(myWin[k]==4){ 
+			 			myScore += 6000;
 			 		}
 
 			 		if(computerWin[k]==1){
-			 			computerScore += 300;
+			 			computerScore += 220;
 			 		}
 			 		else if(computerWin[k]==2){
-			 			computerScore += 600;
+			 			computerScore += 1000;
 			 		}
 			 		else if(computerWin[k]==3){
 			 			computerScore += 3000;
@@ -200,10 +218,20 @@ function computerStep() {
 			computerWin[k]++;
 			myWin[k] = 6;
 			if(computerWin[k]==5){
-				alert("哈哈，芬芬赢了！"); 
+				tips = new Dialog();
+				tips.open({ 
+					content:"哈哈，芬芬赢了！",
+					isShowCancel:true,
+					okBtnTxt: "再来一局",
+
+				}); 
 				over = true;
 				return;
 			} 
 		}
 	};	
+}
+
+function test(){
+	alert("测试成功");
 }

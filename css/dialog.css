@@ -1,0 +1,46 @@
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(99,99,99,0.7);
+    font-size: 12px;
+    line-height: 2em;
+}
+
+.dialog {
+    position: relative; 
+    width: 300px;
+    border-radius: 4px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.header {
+    background-color: #d8e9f9;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+
+.content {
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.footer {
+    border-top: 1px solid #D1D1D1;
+    height: 20px;
+    padding: 10px;
+    text-align: right;
+}
+
+.text-right {
+    float: right;
+}
