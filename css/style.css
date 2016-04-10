@@ -10,7 +10,9 @@ canvas {
 }
 
 .btn{
-	margin: 100px auto;
+	display: flex;
+    justify-content: center;
+    margin-top: 100px;
 }
 
 #reset {

@@ -18,7 +18,7 @@ function Dialog() {
     var dialogHTML = '<div class="dialog"> \
             <div class="header"> \
                 <span id="title">系统提示</span> \
-                <span class="text-right"> ×</span> \
+                <span class="cancelBtn" onclick="document.body.removeChild(dialog);"> ×</span> \
             </div> \
             <div class="content" id="content"> \
                 我是弹窗的内容，这个内容是可以被配置的。标题也是同样的。 \
@@ -53,8 +53,8 @@ function Dialog() {
 
         if(options.okBtnFunc && typeof options.okBtnFunc =="function"){
             okBtn.addEventListener('click', function() {
-                options.okBtnFunc();
                 document.body.removeChild(dialog); 
+                options.okBtnFunc();
             });
         }
         else{
@@ -65,8 +65,8 @@ function Dialog() {
          
         if(options.cancelBtnFunc && typeof options.cancelBtnFunc =="function"){
             cancelBtn.addEventListener('click', function() {
-                options.cancelBtnFunc();
                 document.body.removeChild(dialog); 
+                options.cancelBtnFunc();
             });
         }
         else{

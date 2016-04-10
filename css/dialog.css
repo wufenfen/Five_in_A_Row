@@ -41,6 +41,7 @@
     text-align: right;
 }
 
-.text-right {
+.cancelBtn {
     float: right;
+    cursor: pointer;
 }
